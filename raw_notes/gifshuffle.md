@@ -1,44 +1,52 @@
 # gifshuffle
 
 ## Tool Name & Category
-- **Name:** gifshuffle
-- **Category:** ctf (CTF / Forensics — steganography, carving, memory analysis)
-- **Binary:** `gifshuffle`
-- **Agent:** ctf
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | ctf — CTF / Forensics |
+| **Binary** | `gifshuffle` ❌ missing |
+| **Agent** | ctf |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 GIF steganography
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 gifshuffle -Q /workspace/image.gif
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.11s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 0.0s |
+| Exit code | 127 |
+| Effectiveness | **1/10** — Tool binary not installed |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: gifshuffle: command not found
 
+--- STDERR ---
+command not found: gifshuffle
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
-- Uses synthetic /workspace artifacts — not live target attack
+- `gifshuffle` not found — run `scripts/kali-full-bootstrap.sh`
+- Uses synthetic /workspace artifacts — swap in real samples for deeper RE/forensics
 - Registry template: `gifshuffle -Q /workspace/image.gif {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 60s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 60s
+
+## Next Steps for Exploration & Development
+Run `gifshuffle --help` and tune `gifshuffle -Q /workspace/image.gif {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:35.531476+00:00*
+*GrokStrike v2 — 2026-06-24T05:48:34.118790+00:00*

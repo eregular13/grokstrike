@@ -1,23 +1,32 @@
 # curl-body
 
 ## Tool Name & Category
-- **Name:** curl-body
-- **Category:** web (Web Application Security — crawling, fuzzing, vulnerability scanning)
-- **Binary:** `curl`
-- **Agent:** web
-- **DVWA-optimized:** True
+| Field | Value |
+|-------|-------|
+| **Category** | web — Web Application Security |
+| **Binary** | `curl` ✅ installed |
+| **Agent** | web |
+| **DVWA-optimized** | True |
+| **Lab target** | `http://aegis-target` |
 
 ## Official Purpose
 Fetch page body
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
-curl -skL http://aegis-target
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
+curl -skL http://aegis-target 2>&1 | head -80
 ```
 
-**Target:** `http://aegis-target`  
-**Duration:** 0.11s | **Exit code:** 0
+| Metric | Value |
+|--------|-------|
+| Duration | 0.12s |
+| Exit code | 0 |
+| Effectiveness | **9/10** — Rich actionable output |
+
+## Key Findings
+- **Potential vulnerability signal:** Vulnerable
+- **Potential vulnerability signal:** Vulnerable
 
 ## Full Output Summary
 ```
@@ -67,7 +76,7 @@ curl -skL http://aegis-target
 
 	</fieldset>
 
-	<input type='hidden' name='user_token' value='0bfac22fc4bb9345f6e88b16bffbec52' />
+	<input type='hidden' name='user_token' value='9d3a9cd67f754b8fee9f9ebbf6a2f484' />
 
 	</form>
 
@@ -101,18 +110,17 @@ curl -skL http://aegis-target
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Executed successfully in isolated lab context
+- Executed successfully in isolated lab
 - Registry template: `curl -skL {web} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**8/10** — Strong signal on DVWA/Juice Shop
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=http://aegis-target only; no destructive flags
-- Timeout: 30s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 30s
+
+## Next Steps for Exploration & Development
+Run `curl --help` and tune `curl -skL {web} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:26.535881+00:00*
+*GrokStrike v2 — 2026-06-24T05:47:43.052727+00:00*

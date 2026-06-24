@@ -1,44 +1,52 @@
 # steghide
 
 ## Tool Name & Category
-- **Name:** steghide
-- **Category:** binary (Binary Analysis / Reverse Engineering — disassembly, debugging, firmware)
-- **Binary:** `steghide`
-- **Agent:** forensics
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | binary — Binary Analysis / Reverse Engineering |
+| **Binary** | `steghide` ✅ installed |
+| **Agent** | forensics |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 Steganography analysis
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 steghide info /workspace/image.jpg
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.09s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 0.09s |
+| Exit code | 1 |
+| Effectiveness | **3/10** — Minimal or error output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: steghide: command not found
+
+--- STDERR ---
+steghide: the file format of the file "/workspace/image.jpg" is not supported.
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
-- Uses synthetic /workspace artifacts — not live target attack
+- Uses synthetic /workspace artifacts — swap in real samples for deeper RE/forensics
 - Registry template: `steghide info /workspace/image.jpg {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 60s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 60s
+
+## Next Steps for Exploration & Development
+Run `steghide --help` and tune `steghide info /workspace/image.jpg {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:31.439725+00:00*
+*GrokStrike v2 — 2026-06-24T05:48:02.296934+00:00*

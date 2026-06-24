@@ -1,44 +1,50 @@
 # file
 
 ## Tool Name & Category
-- **Name:** file
-- **Category:** binary (Binary Analysis / Reverse Engineering — disassembly, debugging, firmware)
-- **Binary:** `file`
-- **Agent:** binary
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | binary — Binary Analysis / Reverse Engineering |
+| **Binary** | `file` ✅ installed |
+| **Agent** | binary |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 File type identification
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 file /workspace/binary
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.1s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 0.11s |
+| Exit code | 0 |
+| Effectiveness | **7/10** — Good lab signal |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: file: command not found
+/workspace/binary: Bourne-Again shell script, ASCII text executable
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
-- Uses synthetic /workspace artifacts — not live target attack
+- Uses synthetic /workspace artifacts — swap in real samples for deeper RE/forensics
 - Registry template: `file /workspace/binary {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 10s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 10s
+
+## Next Steps for Exploration & Development
+Run `file --help` and tune `file /workspace/binary {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:31.136995+00:00*
+*GrokStrike v2 — 2026-06-24T05:48:01.634034+00:00*

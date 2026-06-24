@@ -1,43 +1,51 @@
 # h8mail
 
 ## Tool Name & Category
-- **Name:** h8mail
-- **Category:** osint (OSINT — open-source intelligence gathering)
-- **Binary:** `h8mail`
-- **Agent:** osint
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | osint — OSINT |
+| **Binary** | `h8mail` ❌ missing |
+| **Agent** | osint |
+| **DVWA-optimized** | False |
+| **Lab target** | `localhost` |
 
 ## Official Purpose
 Email breach search
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 h8mail -t test@localhost
 ```
 
-**Target:** `localhost`  
-**Duration:** 0.1s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 0.0s |
+| Exit code | 127 |
+| Effectiveness | **1/10** — Tool binary not installed |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: h8mail: command not found
 
+--- STDERR ---
+command not found: h8mail
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
+- `h8mail` not found — run `scripts/kali-full-bootstrap.sh`
 - Registry template: `h8mail -t test@{host} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=localhost only; no destructive flags
-- Timeout: 90s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 120s
+
+## Next Steps for Exploration & Development
+Run `h8mail --help` and tune `h8mail -t test@{host} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:36.132090+00:00*
+*GrokStrike v2 — 2026-06-24T05:48:34.688517+00:00*

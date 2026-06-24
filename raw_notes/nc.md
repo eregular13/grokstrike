@@ -1,23 +1,31 @@
 # nc
 
 ## Tool Name & Category
-- **Name:** nc
-- **Category:** network (Network Reconnaissance — port scanning, service enumeration, SMB/DNS discovery)
-- **Binary:** `nc`
-- **Agent:** network
-- **DVWA-optimized:** True
+| Field | Value |
+|-------|-------|
+| **Category** | network — Network Reconnaissance |
+| **Binary** | `nc` ✅ installed |
+| **Agent** | network |
+| **DVWA-optimized** | True |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 Port connectivity check
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
-nc -zv aegis-target 80 443 8080
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
+nc -zv aegis-target 80 443 3000 8080 2>&1
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.09s | **Exit code:** 0
+| Metric | Value |
+|--------|-------|
+| Duration | 0.1s |
+| Exit code | 0 |
+| Effectiveness | **9/10** — Rich actionable output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
@@ -27,18 +35,17 @@ aegis-target [172.22.0.2] 80 (http) open
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Executed successfully in isolated lab context
+- Executed successfully in isolated lab
 - Registry template: `nc -zv {host} 80 443 8080 {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**6/10** — Partial results; useful for learning workflow
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 30s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 30s
+
+## Next Steps for Exploration & Development
+Run `nc --help` and tune `nc -zv {host} 80 443 8080 {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:08:35.045636+00:00*
+*GrokStrike v2 — 2026-06-24T05:41:15.104568+00:00*

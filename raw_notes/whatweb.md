@@ -1,44 +1,90 @@
 # whatweb
 
 ## Tool Name & Category
-- **Name:** whatweb
-- **Category:** web (Web Application Security — crawling, fuzzing, vulnerability scanning)
-- **Binary:** `whatweb`
-- **Agent:** web
-- **DVWA-optimized:** True
+| Field | Value |
+|-------|-------|
+| **Category** | web — Web Application Security |
+| **Binary** | `whatweb` ✅ installed |
+| **Agent** | web |
+| **DVWA-optimized** | True |
+| **Lab target** | `http://aegis-target` |
 
 ## Official Purpose
 Web technology fingerprint
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
-whatweb -a 3 http://aegis-target
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
+whatweb -a 3 -v http://aegis-target 2>&1 | head -40
 ```
 
-**Target:** `http://aegis-target`  
-**Duration:** 19.41s | **Exit code:** 0
+| Metric | Value |
+|--------|-------|
+| Duration | 19.46s |
+| Exit code | 0 |
+| Effectiveness | **9/10** — Rich actionable output |
+
+## Key Findings
+- **Server version:** Apache/2.4.25
+- **Server version:** Apache/2.4.25
 
 ## Full Output Summary
 ```
-[1m[34mhttp://aegis-target/[0m [302 Found] [1mApache[0m[[1m[32m2.4.25[0m], [1mCookies[0m[[0m[22mPHPSESSID,security[0m], [1mCountry[0m[[0m[22mRESERVED[0m][[1m[31mZZ[0m], [1mHTTPServer[0m[[1m[31mDebian Linux[0m][[1m[36mApache/2.4.25 (Debian)[0m], [1mIP[0m[[0m[22m172.22.0.2[0m], [1mRedirectLocation[0m[[0m[22mlogin.php[0m]
-[1m[34mhttp://aegis-target/login.php[0m [200 OK] [1mApache[0m[[1m[32m2.4.25[0m], [1mCountry[0m[[0m[22mRESERVED[0m][[1m[31mZZ[0m], [1mDVWA[0m, [1mHTTPServer[0m[[1m[31mDebian Linux[0m][[1m[36mApache/2.4.25 (Debian)[0m], [1mIP[0m[[0m[22m172.22.0.2[0m], [1mPHP[0m, [1mPasswordField[0m[[0m[22mpassword[0m], [1mTitle[0m[[1m[33mLogin :: Damn Vulnerable Web Application (DVWA) v1.10 *Development*[0m]
+WhatWeb report for [1m[34mhttp://aegis-target/[0m
+Status    : 302 Found
+Title     : [1m[33m<None>[0m
+IP        : 172.22.0.2
+Country   : [1m[31mRESERVED, ZZ[0m
+
+Summary   : [1mApache[0m[[1m[32m2.4.25[0m], [1mCookies[0m[[0m[22mPHPSESSID,security[0m], [1mHTTPServer[0m[[1m[31mDebian Linux[0m][[1m[36mApache/2.4.25 (Debian)[0m], [1mRedirectLocation[0m[[0m[22mlogin.php[0m]
+
+Detected Plugins:
+[ [1mApache[0m ]
+	The Apache HTTP Server Project is an effort to develop and 
+	maintain an open-source HTTP server for modern operating 
+	systems including UNIX and Windows NT. The goal of this 
+	project is to provide a secure, efficient and extensible 
+	server that provides HTTP services in sync with the current 
+	HTTP standards. 
+
+	Version      : [1m[32m2.4.25[0m (from HTTP Server Header)
+	Google Dorks: (3)
+	Website     : http://httpd.apache.org/
+
+[ [1mCookies[0m ]
+	Display the names of cookies in the HTTP headers. The 
+	values are not returned to save on space. 
+
+	String       : [1m[36mPHPSESSID[0m
+	String       : [1m[36mPHPSESSID[0m
+	String       : [1m[36msecurity[0m
+
+[ [1mHTTPServer[0m ]
+	HTTP server header string. This plugin also attempts to 
+	identify the operating system from the server header. 
+
+	OS           : [1m[31mDebian Linux[0m
+	String       : [1m[36mApache/2.4.25 (Debian)[0m (from server string)
+
+[ [1mRedirectLocation[0m ]
+	HTTP Server string location. used with http-status 301 and 
+	302 
+
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Executed successfully in isolated lab context
+- Executed successfully in isolated lab
 - Registry template: `whatweb -a 3 {web} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**8/10** — Strong signal on DVWA/Juice Shop
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=http://aegis-target only; no destructive flags
-- Timeout: 90s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 90s
+
+## Next Steps for Exploration & Development
+Combine with `httpx -tech-detect` for pipeline fingerprinting.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:08:54.636201+00:00*
+*GrokStrike v2 — 2026-06-24T05:41:34.949040+00:00*

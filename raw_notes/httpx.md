@@ -1,45 +1,54 @@
 # httpx
 
 ## Tool Name & Category
-- **Name:** httpx
-- **Category:** web (Web Application Security — crawling, fuzzing, vulnerability scanning)
-- **Binary:** `httpx`
-- **Agent:** web
-- **DVWA-optimized:** True
+| Field | Value |
+|-------|-------|
+| **Category** | web — Web Application Security |
+| **Binary** | `httpx` ✅ installed |
+| **Agent** | web |
+| **DVWA-optimized** | True |
+| **Lab target** | `http://aegis-target` |
 
 ## Official Purpose
 HTTP probe + tech detect
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
-httpx -u http://aegis-target -title -tech-detect -status-code
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
+echo 'http://aegis-target' | httpx -title -tech-detect -status-code -silent
 ```
 
-**Target:** `http://aegis-target`  
-**Duration:** 0.18s | **Exit code:** 2
+| Metric | Value |
+|--------|-------|
+| Duration | 0.19s |
+| Exit code | 2 |
+| Effectiveness | **3/10** — Minimal or error output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
+
+--- STDERR ---
 Usage: httpx [OPTIONS] URL
 
-Error: No such option: -u
+Error: No such option: -t
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Executed successfully in isolated lab context
+- Executed successfully in isolated lab
 - Registry template: `httpx -u {web} -title -tech-detect -status-code {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**3/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=http://aegis-target only; no destructive flags
-- Timeout: 60s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 60s
+
+## Next Steps for Exploration & Development
+Run `httpx --help` and tune `httpx -u {web} -title -tech-detect -status-code {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:08:35.229955+00:00*
+*GrokStrike v2 — 2026-06-24T05:41:15.391750+00:00*

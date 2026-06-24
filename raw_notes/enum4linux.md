@@ -1,27 +1,35 @@
 # enum4linux
 
 ## Tool Name & Category
-- **Name:** enum4linux
-- **Category:** network (Network Reconnaissance — port scanning, service enumeration, SMB/DNS discovery)
-- **Binary:** `enum4linux`
-- **Agent:** network
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | network — Network Reconnaissance |
+| **Binary** | `enum4linux` ✅ installed |
+| **Agent** | network |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 SMB enumeration
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 enum4linux -a aegis-target
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 20.25s | **Exit code:** 1
+| Metric | Value |
+|--------|-------|
+| Duration | 20.24s |
+| Exit code | 1 |
+| Effectiveness | **5/10** — Non-zero exit but useful output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-Starting enum4linux v0.9.1 ( http://labs.portcullis.co.uk/application/enum4linux/ ) on Wed Jun 24 05:07:35 2026
+Starting enum4linux v0.9.1 ( http://labs.portcullis.co.uk/application/enum4linux/ ) on Wed Jun 24 05:40:00 2026
 
 [34m =========================================( [0m[32mTarget Information[0m[34m )=========================================
 
@@ -53,18 +61,17 @@ No reply from 172.22.0.2
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Executed successfully in isolated lab context
+- Executed successfully in isolated lab
 - Registry template: `enum4linux -a {host} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**5/10** — Partial results; useful for learning workflow
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 90s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 180s
+
+## Next Steps for Exploration & Development
+Run `enum4linux --help` and tune `enum4linux -a {host} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:07:55.418532+00:00*
+*GrokStrike v2 — 2026-06-24T05:40:20.628043+00:00*

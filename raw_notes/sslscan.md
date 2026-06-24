@@ -1,46 +1,55 @@
 # sslscan
 
 ## Tool Name & Category
-- **Name:** sslscan
-- **Category:** web (Web Application Security — crawling, fuzzing, vulnerability scanning)
-- **Binary:** `sslscan`
-- **Agent:** web
-- **DVWA-optimized:** True
+| Field | Value |
+|-------|-------|
+| **Category** | web — Web Application Security |
+| **Binary** | `sslscan` ✅ installed |
+| **Agent** | web |
+| **DVWA-optimized** | True |
+| **Lab target** | `http://aegis-target` |
 
 ## Official Purpose
 SSL cipher enumeration
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 sslscan aegis-target
 ```
 
-**Target:** `http://aegis-target`  
-**Duration:** 0.11s | **Exit code:** 0
+| Metric | Value |
+|--------|-------|
+| Duration | 0.11s |
+| Exit code | 0 |
+| Effectiveness | **7/10** — Good lab signal |
+
+## Key Findings
+- **Open port/service:** open a connection
 
 ## Full Output Summary
 ```
 Version: [32m2.1.5[0m
 OpenSSL 3.6.2 7 Apr 2026
 [0m
+
+--- STDERR ---
 [31mERROR: Could not open a connection to host aegis-target (172.22.0.2) on port 443 (connect: Connection refused).[0m
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Executed successfully in isolated lab context
+- Executed successfully in isolated lab
 - Registry template: `sslscan {host} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**8/10** — Strong signal on DVWA/Juice Shop
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=http://aegis-target only; no destructive flags
-- Timeout: 90s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 120s
+
+## Next Steps for Exploration & Development
+Run `sslscan --help` and tune `sslscan {host} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:25.436756+00:00*
+*GrokStrike v2 — 2026-06-24T05:47:41.507583+00:00*

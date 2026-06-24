@@ -1,44 +1,52 @@
 # ghidra-headless
 
 ## Tool Name & Category
-- **Name:** ghidra-headless
-- **Category:** binary (Binary Analysis / Reverse Engineering — disassembly, debugging, firmware)
-- **Binary:** `analyzeHeadless`
-- **Agent:** binary
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | binary — Binary Analysis / Reverse Engineering |
+| **Binary** | `analyzeHeadless` ❌ missing |
+| **Agent** | binary |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 Ghidra headless analysis
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 analyzeHeadless /workspace ghidra_proj -import /workspace/binary
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.1s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 0.0s |
+| Exit code | 127 |
+| Effectiveness | **1/10** — Tool binary not installed |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: analyzeHeadless: command not found
 
+--- STDERR ---
+command not found: analyzeHeadless
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
-- Uses synthetic /workspace artifacts — not live target attack
+- `analyzeHeadless` not found — run `scripts/kali-full-bootstrap.sh`
+- Uses synthetic /workspace artifacts — swap in real samples for deeper RE/forensics
 - Registry template: `analyzeHeadless /workspace ghidra_proj -import /workspace/binary {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 90s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 180s
+
+## Next Steps for Exploration & Development
+Run `analyzeHeadless --help` and tune `analyzeHeadless /workspace ghidra_proj -import /workspace/binary {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:29.319245+00:00*
+*GrokStrike v2 — 2026-06-24T05:47:54.892871+00:00*

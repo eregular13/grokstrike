@@ -1,43 +1,68 @@
 # hash-identifier
 
 ## Tool Name & Category
-- **Name:** hash-identifier
-- **Category:** auth (Authentication Brute Force — credential attacks, hash cracking)
-- **Binary:** `hash-identifier`
-- **Agent:** auth
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | auth — Authentication / Credential Testing |
+| **Binary** | `hash-identifier` ✅ installed |
+| **Agent** | auth |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 Hash type identification
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 hash-identifier
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.1s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 0.11s |
+| Exit code | 1 |
+| Effectiveness | **5/10** — Non-zero exit but useful output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: hash-identifier: command not found
+   #########################################################################
+   #     __  __                     __           ______    _____           #
+   #    /\ \/\ \                   /\ \         /\__  _\  /\  _ `\         #
+   #    \ \ \_\ \     __      ____ \ \ \___     \/_/\ \/  \ \ \/\ \        #
+   #     \ \  _  \  /'__`\   / ,__\ \ \  _ `\      \ \ \   \ \ \ \ \       #
+   #      \ \ \ \ \/\ \_\ \_/\__, `\ \ \ \ \ \      \_\ \__ \ \ \_\ \      #
+   #       \ \_\ \_\ \___ \_\/\____/  \ \_\ \_\     /\_____\ \ \____/      #
+   #        \/_/\/_/\/__/\/_/\/___/    \/_/\/_/     \/_____/  \/___/  v1.2 #
+   #                                                             By Zion3R #
+   #                                                    www.Blackploit.com #
+   #                                                   Root@Blackploit.com #
+   #########################################################################
+--------------------------------------------------
+ HASH: 
+--- STDERR ---
+Traceback (most recent call last):
+  File "/usr/share/hash-identifier/hash-id.py", line 568, in <module>
+    h = input(" HASH: ")
+EOFError: EOF when reading a line
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
+- Executed successfully in isolated lab
 - Registry template: `hash-identifier {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 30s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 30s
+
+## Next Steps for Exploration & Development
+Run `hash-identifier --help` and tune `hash-identifier {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:28.771273+00:00*
+*GrokStrike v2 — 2026-06-24T05:47:53.623823+00:00*

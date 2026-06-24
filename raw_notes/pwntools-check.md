@@ -1,26 +1,36 @@
 # pwntools-check
 
 ## Tool Name & Category
-- **Name:** pwntools-check
-- **Category:** binary (Binary Analysis / Reverse Engineering — disassembly, debugging, firmware)
-- **Binary:** `python3`
-- **Agent:** binary
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | binary — Binary Analysis / Reverse Engineering |
+| **Binary** | `python3` ✅ installed |
+| **Agent** | binary |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 Pwntools availability
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 python3 -c "from pwn import *; print('pwntools ready')"
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.12s | **Exit code:** 1
+| Metric | Value |
+|--------|-------|
+| Duration | 0.12s |
+| Exit code | 1 |
+| Effectiveness | **3/10** — Minimal or error output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
+
+--- STDERR ---
 Traceback (most recent call last):
   File "<string>", line 1, in <module>
     from pwn import *; print('pwntools ready')
@@ -30,18 +40,17 @@ ModuleNotFoundError: No module named 'pwn'
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Uses synthetic /workspace artifacts — not live target attack
+- Uses synthetic /workspace artifacts — swap in real samples for deeper RE/forensics
 - Registry template: `python3 -c "from pwn import *; print('pwntools ready')" {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**3/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 30s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 30s
+
+## Next Steps for Exploration & Development
+Run `python3 --help` and tune `python3 -c "from pwn import *; print('pwntools ready')" {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:30.223668+00:00*
+*GrokStrike v2 — 2026-06-24T05:47:56.604136+00:00*

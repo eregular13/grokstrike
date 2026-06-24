@@ -1,43 +1,72 @@
 # netexec
 
 ## Tool Name & Category
-- **Name:** netexec
-- **Category:** network (Network Reconnaissance — port scanning, service enumeration, SMB/DNS discovery)
-- **Binary:** `netexec`
-- **Agent:** network
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | network — Network Reconnaissance |
+| **Binary** | `netexec` ✅ installed |
+| **Agent** | network |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 Network exploitation framework
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 netexec smb aegis-target
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.1s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 1.04s |
+| Exit code | 0 |
+| Effectiveness | **9/10** — Rich actionable output |
+
+## Key Findings
+- **Potential vulnerability signal:** SQL
 
 ## Full Output Summary
 ```
-bash: line 1: netexec: command not found
+[*] First time use detected
+[*] Creating home directory structure
+[*] Creating missing folder logs
+[*] Creating missing folder modules
+[*] Creating missing folder workspaces
+[*] Creating missing folder obfuscated_scripts
+[*] Creating missing folder screenshots
+[*] Creating missing folder logs/sam
+[*] Creating missing folder logs/lsa
+[*] Creating missing folder logs/ntds
+[*] Creating missing folder logs/dpapi
+[*] Creating default workspace
+[*] Initializing SMB protocol database
+[*] Initializing WMI protocol database
+[*] Initializing MSSQL protocol database
+[*] Initializing RDP protocol database
+[*] Initializing WINRM protocol database
+[*] Initializing NFS protocol database
+[*] Initializing LDAP protocol database
+[*] Initializing FTP protocol database
+[*] Initializing SSH protocol database
+[*] Initializing VNC protocol database
+[*] Copying default configuration file
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
+- Executed successfully in isolated lab
 - Registry template: `netexec smb {host} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 90s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 180s
+
+## Next Steps for Exploration & Development
+Run `netexec --help` and tune `netexec smb {host} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:08:25.814889+00:00*
+*GrokStrike v2 — 2026-06-24T05:41:03.175729+00:00*

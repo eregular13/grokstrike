@@ -1,23 +1,31 @@
 # wafw00f
 
 ## Tool Name & Category
-- **Name:** wafw00f
-- **Category:** web (Web Application Security — crawling, fuzzing, vulnerability scanning)
-- **Binary:** `wafw00f`
-- **Agent:** web
-- **DVWA-optimized:** True
+| Field | Value |
+|-------|-------|
+| **Category** | web — Web Application Security |
+| **Binary** | `wafw00f` ✅ installed |
+| **Agent** | web |
+| **DVWA-optimized** | True |
+| **Lab target** | `http://aegis-target` |
 
 ## Official Purpose
 WAF fingerprinting
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
-wafw00f http://aegis-target
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
+wafw00f -a http://aegis-target 2>&1
 ```
 
-**Target:** `http://aegis-target`  
-**Duration:** 0.21s | **Exit code:** 0
+| Metric | Value |
+|--------|-------|
+| Duration | 0.23s |
+| Exit code | 0 |
+| Effectiveness | **9/10** — Rich actionable output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
@@ -44,18 +52,17 @@ wafw00f http://aegis-target
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Executed successfully in isolated lab context
+- Executed successfully in isolated lab
 - Registry template: `wafw00f {web} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**8/10** — Strong signal on DVWA/Juice Shop
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=http://aegis-target only; no destructive flags
-- Timeout: 60s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 60s
+
+## Next Steps for Exploration & Development
+Run `wafw00f --help` and tune `wafw00f {web} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:25.217289+00:00*
+*GrokStrike v2 — 2026-06-24T05:47:41.101642+00:00*

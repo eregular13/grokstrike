@@ -1,43 +1,52 @@
 # shodan-cli
 
 ## Tool Name & Category
-- **Name:** shodan-cli
-- **Category:** osint (OSINT — open-source intelligence gathering)
-- **Binary:** `shodan`
-- **Agent:** osint
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | osint — OSINT |
+| **Binary** | `shodan` ✅ installed |
+| **Agent** | osint |
+| **DVWA-optimized** | False |
+| **Lab target** | `localhost` |
 
 ## Official Purpose
 Shodan host lookup
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 shodan host localhost
 ```
 
-**Target:** `localhost`  
-**Duration:** 0.24s | **Exit code:** 1
+| Metric | Value |
+|--------|-------|
+| Duration | 0.27s |
+| Exit code | 1 |
+| Effectiveness | **3/10** — Minimal or error output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
+
+--- STDERR ---
 Error: Please run "shodan init <api key>" before using this command
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Executed successfully in isolated lab context
+- Executed successfully in isolated lab
 - Registry template: `shodan host {host} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**3/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=localhost only; no destructive flags
-- Timeout: 60s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 60s
+
+## Next Steps for Exploration & Development
+Run `shodan --help` and tune `shodan host {host} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:36.484283+00:00*
+*GrokStrike v2 — 2026-06-24T05:48:35.155257+00:00*

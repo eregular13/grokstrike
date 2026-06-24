@@ -1,44 +1,52 @@
 # cloudmapper
 
 ## Tool Name & Category
-- **Name:** cloudmapper
-- **Category:** cloud (Cloud & Container Security — K8s, AWS, container image scanning)
-- **Binary:** `cloudmapper`
-- **Agent:** cloud
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | cloud — Cloud & Container Security |
+| **Binary** | `cloudmapper` ❌ missing |
+| **Agent** | cloud |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 AWS network viz
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 cloudmapper collect --account test
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.1s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 0.0s |
+| Exit code | 127 |
+| Effectiveness | **1/10** — Tool binary not installed |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: cloudmapper: command not found
 
+--- STDERR ---
+command not found: cloudmapper
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
-- Cloud tools need credentials/config — version/help checks only in lab
+- `cloudmapper` not found — run `scripts/kali-full-bootstrap.sh`
+- Cloud tools may need API credentials; container scans work offline with trivy/grype
 - Registry template: `cloudmapper collect --account test {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 90s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 180s
+
+## Next Steps for Exploration & Development
+Run `cloudmapper --help` and tune `cloudmapper collect --account test {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:32.563104+00:00*
+*GrokStrike v2 — 2026-06-24T05:48:29.451117+00:00*

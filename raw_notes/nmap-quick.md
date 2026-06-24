@@ -1,52 +1,60 @@
 # nmap-quick
 
 ## Tool Name & Category
-- **Name:** nmap-quick
-- **Category:** network (Network Reconnaissance — port scanning, service enumeration, SMB/DNS discovery)
-- **Binary:** `nmap`
-- **Agent:** network
-- **DVWA-optimized:** True
+| Field | Value |
+|-------|-------|
+| **Category** | network — Network Reconnaissance |
+| **Binary** | `nmap` ✅ installed |
+| **Agent** | network |
+| **DVWA-optimized** | True |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 Fast top-port scan
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 nmap -F -T4 aegis-target
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.75s | **Exit code:** 0
+| Metric | Value |
+|--------|-------|
+| Duration | 0.74s |
+| Exit code | 0 |
+| Effectiveness | **9/10** — Rich actionable output |
+
+## Key Findings
+- **Open port/service:** open  http
+MAC
 
 ## Full Output Summary
 ```
-Starting Nmap 7.99 ( https://nmap.org ) at 2026-06-24 05:05 +0000
+Starting Nmap 7.99 ( https://nmap.org ) at 2026-06-24 05:36 +0000
 Nmap scan report for aegis-target (172.22.0.2)
-Host is up (0.000013s latency).
+Host is up (0.000014s latency).
 rDNS record for 172.22.0.2: aegis-target.aegiscontrolplane_default
 Not shown: 99 closed tcp ports (reset)
 PORT   STATE SERVICE
 80/tcp open  http
 MAC Address: 22:44:33:39:AA:11 (Unknown)
 
-Nmap done: 1 IP address (1 host up) scanned in 0.65 seconds
+Nmap done: 1 IP address (1 host up) scanned in 0.62 seconds
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Executed successfully in isolated lab context
+- Executed successfully in isolated lab
 - Registry template: `nmap -F -T4 {host} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**8/10** — Strong signal on DVWA/Juice Shop
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 90s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 120s
+
+## Next Steps for Exploration & Development
+Run `nmap --help` and tune `nmap -F -T4 {host} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:05:56.064430+00:00*
+*GrokStrike v2 — 2026-06-24T05:36:47.104261+00:00*

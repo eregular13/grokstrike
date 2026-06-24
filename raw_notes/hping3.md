@@ -1,43 +1,59 @@
 # hping3
 
 ## Tool Name & Category
-- **Name:** hping3
-- **Category:** network (Network Reconnaissance — port scanning, service enumeration, SMB/DNS discovery)
-- **Binary:** `hping3`
-- **Agent:** network
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | network — Network Reconnaissance |
+| **Binary** | `hping3` ✅ installed |
+| **Agent** | network |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 Crafted packet probe
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 hping3 -S -p 80 -c 3 aegis-target
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.1s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 2.14s |
+| Exit code | 0 |
+| Effectiveness | **9/10** — Rich actionable output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: hping3: command not found
+HPING aegis-target (eth0 172.22.0.2): S set, 40 headers + 0 data bytes
+len=44 ip=172.22.0.2 ttl=64 DF id=0 sport=80 flags=SA seq=0 win=64240 rtt=1.0 ms
+len=44 ip=172.22.0.2 ttl=64 DF id=0 sport=80 flags=SA seq=1 win=64240 rtt=0.9 ms
+len=44 ip=172.22.0.2 ttl=64 DF id=0 sport=80 flags=SA seq=2 win=64240 rtt=0.7 ms
+
+--- STDERR ---
+
+--- aegis-target hping statistic ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.7/0.8/1.0 ms
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
+- Executed successfully in isolated lab
 - Registry template: `hping3 -S -p 80 -c 3 {host} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 30s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 30s
+
+## Next Steps for Exploration & Development
+Run `hping3 --help` and tune `hping3 -S -p 80 -c 3 {host} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:08:26.526939+00:00*
+*GrokStrike v2 — 2026-06-24T05:41:06.215156+00:00*

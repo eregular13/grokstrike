@@ -1,43 +1,49 @@
 # subfinder
 
 ## Tool Name & Category
-- **Name:** subfinder
-- **Category:** network (Network Reconnaissance — port scanning, service enumeration, SMB/DNS discovery)
-- **Binary:** `subfinder`
-- **Agent:** osint
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | network — Network Reconnaissance |
+| **Binary** | `subfinder` ✅ installed |
+| **Agent** | osint |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 Passive subdomain discovery
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 subfinder -d aegis-target -silent
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.08s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 18.75s |
+| Exit code | 0 |
+| Effectiveness | **5/10** — Ran successfully, limited findings |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: subfinder: command not found
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
+- Executed successfully in isolated lab
 - Registry template: `subfinder -d {host} -silent {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 90s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 180s
+
+## Next Steps for Exploration & Development
+Run `subfinder --help` and tune `subfinder -d {host} -silent {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:06:04.654968+00:00*
+*GrokStrike v2 — 2026-06-24T05:37:15.059105+00:00*

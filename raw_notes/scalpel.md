@@ -1,44 +1,61 @@
 # scalpel
 
 ## Tool Name & Category
-- **Name:** scalpel
-- **Category:** ctf (CTF / Forensics — steganography, carving, memory analysis)
-- **Binary:** `scalpel`
-- **Agent:** forensics
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | ctf — CTF / Forensics |
+| **Binary** | `scalpel` ✅ installed |
+| **Agent** | forensics |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 Configurable file carving
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 scalpel -o /results/scalpel /workspace/disk.img
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.1s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 0.1s |
+| Exit code | 255 |
+| Effectiveness | **3/10** — Minimal or error output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: scalpel: command not found
+Scalpel version 1.60
+Written by Golden G. Richard III, based on Foremost 0.69.
+
+--- STDERR ---
+
+Opening target "/workspace/disk.img"
+
+ERROR: The configuration file didn't specify any file types to carve.
+(If you're using the default configuration file, you'll have to
+uncomment some of the file types.)
+
+See /etc/scalpel/scalpel.conf.
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
-- Uses synthetic /workspace artifacts — not live target attack
+- Uses synthetic /workspace artifacts — swap in real samples for deeper RE/forensics
 - Registry template: `scalpel -o /results/scalpel /workspace/disk.img {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 90s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 180s
+
+## Next Steps for Exploration & Development
+Run `scalpel --help` and tune `scalpel -o /results/scalpel /workspace/disk.img {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:34.228109+00:00*
+*GrokStrike v2 — 2026-06-24T05:48:31.492103+00:00*

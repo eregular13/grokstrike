@@ -1,43 +1,66 @@
 # dnsenum
 
 ## Tool Name & Category
-- **Name:** dnsenum
-- **Category:** network (Network Reconnaissance — port scanning, service enumeration, SMB/DNS discovery)
-- **Binary:** `dnsenum`
-- **Agent:** network
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | network — Network Reconnaissance |
+| **Binary** | `dnsenum` ✅ installed |
+| **Agent** | network |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 DNS info gathering
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 dnsenum aegis-target
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.09s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 4.33s |
+| Exit code | 255 |
+| Effectiveness | **5/10** — Non-zero exit but useful output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: dnsenum: command not found
+dnsenum VERSION:1.3.1
+[1;34m
+-----   aegis-target   -----
+[0m[1;31m
+
+Host's addresses:
+__________________
+
+[0maegis-target.                            600      IN    A        172.22.0.2
+[1;31m
+
+Name Servers:
+______________
+
+[0m
+--- STDERR ---
+ aegis-target NS record query failed: NXDOMAIN
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
+- Executed successfully in isolated lab
 - Registry template: `dnsenum {host} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 90s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 180s
+
+## Next Steps for Exploration & Development
+Run `dnsenum --help` and tune `dnsenum {host} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:06:04.834889+00:00*
+*GrokStrike v2 — 2026-06-24T05:37:19.919009+00:00*

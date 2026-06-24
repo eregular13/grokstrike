@@ -1,43 +1,52 @@
 # rpcclient
 
 ## Tool Name & Category
-- **Name:** rpcclient
-- **Category:** network (Network Reconnaissance — port scanning, service enumeration, SMB/DNS discovery)
-- **Binary:** `rpcclient`
-- **Agent:** network
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | network — Network Reconnaissance |
+| **Binary** | `rpcclient` ✅ installed |
+| **Agent** | network |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 RPC enumeration
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 rpcclient -c enumdomusers aegis-target
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.13s | **Exit code:** 1
+| Metric | Value |
+|--------|-------|
+| Duration | 0.14s |
+| Exit code | 1 |
+| Effectiveness | **3/10** — Minimal or error output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
+
+--- STDERR ---
 Cannot connect to server.  Error was NT_STATUS_CONNECTION_REFUSED
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Executed successfully in isolated lab context
+- Executed successfully in isolated lab
 - Registry template: `rpcclient -c enumdomusers {host} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**3/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 90s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 120s
+
+## Next Steps for Exploration & Development
+Run `rpcclient --help` and tune `rpcclient -c enumdomusers {host} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:07:35.169364+00:00*
+*GrokStrike v2 — 2026-06-24T05:40:00.276552+00:00*

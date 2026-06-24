@@ -1,26 +1,36 @@
 # censys-cli
 
 ## Tool Name & Category
-- **Name:** censys-cli
-- **Category:** osint (OSINT — open-source intelligence gathering)
-- **Binary:** `censys`
-- **Agent:** osint
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | osint — OSINT |
+| **Binary** | `censys` ✅ installed |
+| **Agent** | osint |
+| **DVWA-optimized** | False |
+| **Lab target** | `localhost` |
 
 ## Official Purpose
 Censys search
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 censys search localhost
 ```
 
-**Target:** `localhost`  
-**Duration:** 0.23s | **Exit code:** 1
+| Metric | Value |
+|--------|-------|
+| Duration | 0.26s |
+| Exit code | 1 |
+| Effectiveness | **3/10** — Minimal or error output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
+
+--- STDERR ---
 Traceback (most recent call last):
   File "/usr/bin/censys", line 8, in <module>
     sys.exit(main())
@@ -43,18 +53,17 @@ censys.common.exceptions.CensysException: No API ID or API secret configured.
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Executed successfully in isolated lab context
+- Executed successfully in isolated lab
 - Registry template: `censys search {host} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**3/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=localhost only; no destructive flags
-- Timeout: 60s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 60s
+
+## Next Steps for Exploration & Development
+Run `censys --help` and tune `censys search {host} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:11:36.710665+00:00*
+*GrokStrike v2 — 2026-06-24T05:48:35.511947+00:00*

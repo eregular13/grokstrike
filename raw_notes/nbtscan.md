@@ -1,43 +1,95 @@
 # nbtscan
 
 ## Tool Name & Category
-- **Name:** nbtscan
-- **Category:** network (Network Reconnaissance — port scanning, service enumeration, SMB/DNS discovery)
-- **Binary:** `nbtscan`
-- **Agent:** network
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | network — Network Reconnaissance |
+| **Binary** | `nbtscan` ✅ installed |
+| **Agent** | network |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 NetBIOS scan
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 nbtscan aegis-target
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.08s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 0.09s |
+| Exit code | 2 |
+| Effectiveness | **5/10** — Non-zero exit but useful output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: nbtscan: command not found
+Error: aegis-target is not an IP address or address range.
+Usage:
+nbtscan [-v] [-d] [-e] [-l] [-t timeout] [-b bandwidth] [-r] [-q] [-s separator] [-m retransmits] (-f filename)|(<scan_range>) 
+	-v		verbose output. Print all names received
+			from each host
+	-d		dump packets. Print whole packet contents.
+	-e		Format output in /etc/hosts format.
+	-l		Format output in lmhosts format.
+			Cannot be used with -v, -s or -h options.
+	-t timeout	wait timeout milliseconds for response.
+			Default 1000.
+	-b bandwidth	Output throttling. Slow down output
+			so that it uses no more that bandwidth bps.
+			Useful on slow links, so that ougoing queries
+			don't get dropped.
+	-r		use local port 137 for scans. Win95 boxes
+			respond to this only.
+			You need to be root to use this option on Unix.
+	-q		Suppress banners and error messages,
+	-s separator	Script-friendly output. Don't print
+			column and record headers, separate fields with separator.
+	-h		Print human-readable names for services.
+			Can only be used with -v option.
+	-m retransmits	Number of retransmits. Default 0.
+	-f filename	Take IP addresses to scan from file filename.
+			-f - makes nbtscan take IP addresses from stdin.
+	<scan_range>	what to scan. Can either be single IP
+			like 192.168.1.1 or
+			range of addresses in one of two forms: 
+			xxx.xxx.xxx.xxx/xx or xxx.xxx.xxx.xxx-xxx.
+Examples:
+	nbtscan -r 192.168.1.0/24
+		Scans the whole C-class network.
+	nbtscan 192.168.1.25-137
+		Scans a range from 192.168.1.25 to 192.168.1.137
+	nbtscan -v -s : 192.168.1.0/24
+		Scans C-class network. Prints results in script-friendly
+		format using colon as field separator.
+		Produces output like that:
+		192.168.0.1:NT_SERVER:00U
+		192.168.0.1:MY_DOMAIN:00G
+		192.168.0.1:ADMINISTRATOR:03U
+		192.168.0.2:OTHER_BOX:00U
+		...
+	nbtscan -f iplist
+		Scans IP addresses specified in file iplist.
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
+- Executed successfully in isolated lab
 - Registry template: `nbtscan {host} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 60s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 60s
+
+## Next Steps for Exploration & Development
+Run `nbtscan --help` and tune `nbtscan {host} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:07:35.036888+00:00*
+*GrokStrike v2 — 2026-06-24T05:40:00.031930+00:00*

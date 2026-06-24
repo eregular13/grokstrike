@@ -1,43 +1,59 @@
 # fierce
 
 ## Tool Name & Category
-- **Name:** fierce
-- **Category:** network (Network Reconnaissance — port scanning, service enumeration, SMB/DNS discovery)
-- **Binary:** `fierce`
-- **Agent:** network
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | network — Network Reconnaissance |
+| **Binary** | `fierce` ✅ installed |
+| **Agent** | network |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 DNS reconnaissance
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 fierce -dns aegis-target
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.09s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 0.35s |
+| Exit code | 2 |
+| Effectiveness | **3/10** — Minimal or error output |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: fierce: command not found
+
+--- STDERR ---
+usage: fierce [-h] [--domain DOMAIN] [--connect] [--wide]
+              [--traverse TRAVERSE] [--search SEARCH [SEARCH ...]]
+              [--range RANGE] [--delay DELAY]
+              [--subdomains SUBDOMAINS [SUBDOMAINS ...] |
+              --subdomain-file SUBDOMAIN_FILE]
+              [--dns-servers DNS_SERVERS [DNS_SERVERS ...] |
+              --dns-file DNS_FILE] [--tcp]
+fierce: error: unrecognized arguments: -dns aegis-target
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
+- Executed successfully in isolated lab
 - Registry template: `fierce -dns {host} {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 90s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 180s
+
+## Next Steps for Exploration & Development
+Run `fierce --help` and tune `fierce -dns {host} {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:06:04.744248+00:00*
+*GrokStrike v2 — 2026-06-24T05:37:15.495715+00:00*

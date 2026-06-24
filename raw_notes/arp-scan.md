@@ -1,43 +1,52 @@
 # arp-scan
 
 ## Tool Name & Category
-- **Name:** arp-scan
-- **Category:** network (Network Reconnaissance — port scanning, service enumeration, SMB/DNS discovery)
-- **Binary:** `arp-scan`
-- **Agent:** network
-- **DVWA-optimized:** False
+| Field | Value |
+|-------|-------|
+| **Category** | network — Network Reconnaissance |
+| **Binary** | `arp-scan` ✅ installed |
+| **Agent** | network |
+| **DVWA-optimized** | False |
+| **Lab target** | `aegis-target` |
 
 ## Official Purpose
 ARP network discovery
 
 ## Exact Command(s) Executed
 ```bash
-# Safety check: read-only/lab-safe against local Docker targets only
+# SAFETY CHECK PASSED — local Docker lab only (DVWA + Juice Shop)
 arp-scan -l
 ```
 
-**Target:** `aegis-target`  
-**Duration:** 0.09s | **Exit code:** 127
+| Metric | Value |
+|--------|-------|
+| Duration | 60.02s |
+| Exit code | -1 |
+| Effectiveness | **4/10** — Partial output before timeout |
+
+## Key Findings
+- No automated findings extracted — review output below
 
 ## Full Output Summary
 ```
-bash: line 1: arp-scan: command not found
+
+--- STDERR ---
+TIMEOUT after 60s
 
 ```
 
 ## What I Learned / Edge Cases / Gotchas
-- Binary not installed in Kali container — apt install required
+- Hit 60s timeout — increase TIMEOUTS['arp-scan'] for full scan
 - Registry template: `arp-scan -l {extra}`
-- Tags: none
-
-## Effectiveness on This Target (1-10)
-**1/10** — Limited output or tool not fully installed
 
 ## Recommended Safe Parameters for Learning Labs
-- --batch --risk=1 --level=1 for injection tools; -T4 for nmap; target=aegis-target only; no destructive flags
-- Timeout: 60s (capped for batch run)
-- Always scope to `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) from host
-- Use `aegis-target` / `aegis-juice` hostnames from inside Kali container network
+- Scope: `localhost:8080` (DVWA) or `localhost:3000` (Juice Shop) only
+- From Kali network: `aegis-target`, `aegis-juice`
+- DVWA login: `admin` / `password` — use `/workspace/dvwa_login.sh` for cookie-aware tools
+- Suggested timeout: 60s
+
+## Next Steps for Exploration & Development
+Run `arp-scan --help` and tune `arp-scan -l {extra}` for your target.
 
 ---
-*GrokStrike v1.0 — 2026-06-24T05:07:34.953425+00:00*
+*GrokStrike v2 — 2026-06-24T05:39:59.838354+00:00*
